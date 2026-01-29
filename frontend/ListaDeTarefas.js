@@ -1,12 +1,12 @@
 let dragId = null;
 let somatorio = 0;
-
+let ApiUrl = 'https://to-do-list-backend-7uj7.onrender.com'
 document.addEventListener("DOMContentLoaded", configurarPagina);
 
 async function configurarPagina() {
   document.getElementById("data").setAttribute("min", new Date().toISOString().split("T")[0]);
   document.getElementById("data-e").setAttribute("min", new Date().toISOString().split("T")[0]);
-  const response = await fetch("http://localhost:3000/tarefas");
+  const response = await fetch(`${ApiUrl}/tarefas`);
   const tarefas = await response.json();
   renderTarefas(tarefas);
 }
@@ -79,7 +79,7 @@ function renderTarefas(tarefas) {
 /* ===== BACKEND ===== */
 async function atualizarOrdem(id, novaOrdem) {
     try {
-  await fetch("http://localhost:3000/tarefas/reordenar", {
+  await fetch(`${ApiUrl}/tarefas/reordenar`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id_tarefa: id, nova_ordem: novaOrdem }),
@@ -111,7 +111,7 @@ async function descer(id) {
 
 async function excluir(id) {
   if (confirm("Deseja excluir esta tarefa?")) {
-    await fetch(`http://localhost:3000/tarefas/excluir/${id}`, {
+    await fetch(`${ApiUrl}/tarefas/excluir/${id}`, {
       method: "DELETE",
     }).then(configurarPagina);
   }
@@ -134,7 +134,7 @@ async function editarTarefa() {
     let custoTarefa = document.getElementById("custo-e").value;
     let dataTarefa = document.getElementById("data-e").value;
 
-    await fetch(`http://localhost:3000/tarefas/editar/${id}`, {
+    await fetch(`${ApiUrl}/tarefas/editar/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -161,7 +161,7 @@ async function adicionarTarefa() {
     let custoTarefa = document.getElementById("custo").value;
     let dataTarefa = document.getElementById("data").value;
     
-    await fetch("http://localhost:3000/tarefas/adicionar", {
+    await fetch(`${ApiUrl}/tarefas/adicionar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
