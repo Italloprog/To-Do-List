@@ -26,7 +26,7 @@ function renderTarefas(tarefas) {
     li.dataset.id = tarefa.id_tarefa;
     li.dataset.ordem = tarefa.ordem_apresentacao;
 
-    if(tarefa.custo >= 1000){
+    if(Number(tarefa.custo) >= 1000){
       li.classList.add("high-cost");
     }
 
@@ -35,7 +35,7 @@ function renderTarefas(tarefas) {
         <div class="task-title">${tarefa.nome_tarefa}</div>
         <span>ID: ${tarefa.id_tarefa}</span>
         <span>📅 Data limite: ${formatarData(tarefa.data_limite)}</span>
-        <span>💰 Custo: R$ ${Number(tarefa.custo).toFixed(2)}</span>
+        <span>💰 Custo: R$ ${Number(tarefa.custo).toFixed(2).replace(".", ",")}</span>
       </div>
 
       <div class="task-actions">
@@ -135,7 +135,7 @@ async function editarTarefa() {
     let custoTarefa = document.getElementById("custo-e").value;
     let dataTarefa = document.getElementById("data-e").value;
 
-    await fetch(`${ApiUrl}/tarefas/editar/${id}`, {
+    let response = await fetch(`${ApiUrl}/tarefas/editar/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -143,8 +143,12 @@ async function editarTarefa() {
             custo: custoTarefa,
             data: dataTarefa
         })
-    }).then(configurarPagina);
-    
+    });
+
+    const data = await response.json();
+    alert(JSON.stringify(data));
+    configurarPagina();
+    esconderEditarTarefa()
 }
 
 function mostrarAdicionarTarefa() {
@@ -158,22 +162,22 @@ function esconderAdicionarTarefa() {
 }
 
 async function adicionarTarefa() {
-    let nomeTarefa = document.getElementById("nome").value;
-    let custoTarefa = document.getElementById("custo").value;
-    let dataTarefa = document.getElementById("data").value;
-    
-    try {
-    await fetch(`${ApiUrl}/tarefas/adicionar`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            nome: nomeTarefa,
-            custo: custoTarefa,
-            data: dataTarefa
-        })
-    }).then(configurarPagina);
-    } catch (error) {
-        alert("Erro ao adicionar tarefa: " + error.message);
-    }
-    
+  let nomeTarefa = document.getElementById("nome").value;
+  let custoTarefa = document.getElementById("custo").value;
+  let dataTarefa = document.getElementById("data").value;
+  
+  const response = await fetch(`${ApiUrl}/tarefas/adicionar`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nome: nomeTarefa,
+      custo: custoTarefa,
+      data: dataTarefa
+    })
+  });
+  
+  const data = await response.json();
+  alert(JSON.stringify(data));
+  configurarPagina();
+  esconderAdicionarTarefa();
 }
