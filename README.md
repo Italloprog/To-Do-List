@@ -72,6 +72,8 @@ A reordenação utiliza transações no banco de dados.
 
 O backend está configurado com CORS para permitir acesso pelo GitHub Pages.
 
+Disponivel em : [link](https://italloprog.github.io/To-Do-List/frontend/index.html?)
+
 # 👨‍💻 Autor
 
 Desenvolvido por Itallo Aleandro
