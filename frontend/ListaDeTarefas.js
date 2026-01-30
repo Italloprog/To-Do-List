@@ -162,6 +162,7 @@ async function adicionarTarefa() {
     let custoTarefa = document.getElementById("custo").value;
     let dataTarefa = document.getElementById("data").value;
     
+    try {
     await fetch(`${ApiUrl}/tarefas/adicionar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -171,5 +172,8 @@ async function adicionarTarefa() {
             data: dataTarefa
         })
     }).then(configurarPagina);
+    } catch (error) {
+        alert("Erro ao adicionar tarefa: " + error.message);
+    }
     
 }
