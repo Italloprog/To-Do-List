@@ -18,7 +18,7 @@ main {
 
 footer{
     text-align: center;
-    background-image: linear-gradient(to right,#3d0000, #001353);
+    background-image: linear-gradient(to right, #001353, #3d0000);
 }
 
 footer p{
