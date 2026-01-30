@@ -92,7 +92,7 @@ async function atualizarOrdem(id, novaOrdem) {
 
 /* ===== UTIL ===== */
 function formatarData(data) {
-  return new Date(data).toLocaleDateString("pt-BR");
+  return new Date(data).toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
 /* ===== BOTÕES ===== */
