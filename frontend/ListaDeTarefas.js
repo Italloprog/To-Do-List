@@ -1,6 +1,7 @@
 let dragId = null;
 let somatorio = 0;
-let ApiUrl = 'https://to-do-list-backend-7uj7.onrender.com'
+let ApiUrl = 'https://to-do-list-backend-7uj7.onrender.com';
+
 document.addEventListener("DOMContentLoaded", configurarPagina);
 
 async function configurarPagina() {
