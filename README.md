@@ -74,6 +74,8 @@ O backend está configurado com CORS para permitir acesso pelo GitHub Pages.
 
 Disponivel em : [link](https://italloprog.github.io/To-Do-List/frontend/index.html?)
 
+Devido a hospedagem com o plano gratuito do render, o processamento é mais lento devido a baixa ram disponivel, assim, a primeira iniciação é demorada e algumas funcionalidades apresentam delay.
+
 # 👨‍💻 Autor
 
 Desenvolvido por Itallo Aleandro
