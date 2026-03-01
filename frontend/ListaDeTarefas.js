@@ -41,7 +41,7 @@ function renderTarefas(tarefas) {
       <div class="task-actions">
         <button class="btn-up" onclick="subir(${tarefa.id_tarefa})">⬆</button>
         <button class="btn-down" onclick="descer(${tarefa.id_tarefa})">⬇</button>
-        <button class="btn-edit" onclick="mostrarEditarTarefa(${tarefa.id_tarefa})">✏</button>
+        <button class="btn-edit" onclick="mostrarEditarTarefa(${tarefa.id_tarefa},'${tarefa.nome_tarefa}',${tarefa.custo},'${tarefa.data_limite.split("T")[0]}')">✏</button>
         <button class="btn-delete" onclick="excluir(${tarefa.id_tarefa})">🗑</button>
       </div>
     `;
@@ -118,10 +118,19 @@ async function excluir(id) {
   }
 }
 
-function mostrarEditarTarefa(id) {
+function mostrarEditarTarefa(id, nome, custo, data) {
     let formCard = document.querySelector(".form-e-card");
+
     formCard.style.display = "block";
+
     document.querySelector("#id-e").innerHTML = id;
+    document.querySelector("#nome-e").value = nome;
+    document.querySelector("#custo-e").value = custo;
+    document.querySelector("#data-e").value = data;
+
+    
+
+    document.querySelector("#nome-e").focus();
 }
 
 function esconderEditarTarefa() {
@@ -134,6 +143,11 @@ async function editarTarefa() {
     let nomeTarefa = document.getElementById("nome-e").value;
     let custoTarefa = document.getElementById("custo-e").value;
     let dataTarefa = document.getElementById("data-e").value;
+
+    if(custoTarefa < 0 || custoTarefa > 99999999.99){
+        alert("Custo inválido. O valor deve estar entre 0 e 99.999.999,99.");
+        return;
+    }
 
     let response = await fetch(`${ApiUrl}/tarefas/editar/${id}`, {
         method: "PUT",
@@ -148,12 +162,13 @@ async function editarTarefa() {
     const data = await response.json();
     alert(JSON.stringify(data));
     configurarPagina();
-    esconderEditarTarefa()
+    esconderEditarTarefa();
 }
 
 function mostrarAdicionarTarefa() {
     let formCard = document.querySelector(".form-card");
     formCard.style.display = "block";
+    document.querySelector("#nome").focus();
 }
 
 function esconderAdicionarTarefa() {
@@ -165,6 +180,12 @@ async function adicionarTarefa() {
   let nomeTarefa = document.getElementById("nome").value;
   let custoTarefa = document.getElementById("custo").value;
   let dataTarefa = document.getElementById("data").value;
+  
+
+  if(custoTarefa < 0 || custoTarefa > 99999999.99){
+        alert("Custo inválido. O valor deve estar entre 0 e 99.999.999,99.");
+        return;
+    }
   
   const response = await fetch(`${ApiUrl}/tarefas/adicionar`, {
     method: "POST",
