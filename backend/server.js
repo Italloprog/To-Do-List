@@ -8,7 +8,7 @@ app.use(cors());
 
 new Routes('Rotas Tarefas', app, '/tarefas');
 
-/* apenas primeiro uso para criar o banco de dados no PostgreSQL hospedado
+// apenas primeiro uso para criar o banco de dados no PostgreSQL hospedado
 app.get('/criarBD', (req, res) => {
     try {
     pool.query(`CREATE TABLE tarefas (
@@ -36,7 +36,7 @@ DEFERRABLE INITIALLY DEFERRED;`);
         res.status(500).json({ erro: 'Erro ao criar db: ' + error.message });
     }
 }),
-*/
+
 
 app.listen(3000, () => {
     console.log('Servidor iniciado na porta 3000');
