@@ -1,6 +1,7 @@
 import express from 'express';
 import { Routes } from './presentation/routes.js';
 import cors from 'cors';
+import pool from './persistence/db.js';
 
 const app = express();
 app.use(express.json());
